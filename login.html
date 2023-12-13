@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Tela de login</title>
+  </head>
+  <body>
+    <div id="login2">
+      <form class="fundo" id="registroForm">
+        <div class="fundo-h2">
+          <h2>Registro de Cliente</h2>
+        </div>
+
+        <div class="fundo-conteudo">
+          <div class="fundo-conteudo-area">
+            <label for="usuario">Usuário</label>
+            <input type="text" id="usuario" autocomplete="off" />
+          </div>
+
+          <div class="fundo-conteudo-area">
+            <label for="password">Senha</label>
+            <input type="password" id="password" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="fundo-footer">
+          <button type="button" onclick="registrarCliente()" class="submit">Registrar Cliente</button>
+          <a href="">Esqueceu a senha?</a>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      async function registrarCliente() {
+        const usuario = document.getElementById('usuario').value;
+        const senha = document.getElementById('password').value;
+
+        const data = {
+          nome: usuario,
+          senha: senha
+        };
+
+        try {
+          const resposta = await fetch('http://localhost:3000/registrarCliente', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+
+          const resultado = await resposta.json();
+
+          alert(resultado.message);
+        } catch (erro) {
+          console.error('Erro:', erro);
+          alert('Ocorreu um erro ao registrar o cliente');
+        }
+      }
+    </script>
+  </body>
+</html>
+
